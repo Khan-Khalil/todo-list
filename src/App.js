@@ -2,19 +2,19 @@ import './App.css';
 import Welcome from './components/Welome';
 import Homepage from './components/Homepage';
 import {
-  BrowserRoute,
+  BrowserRouter,
   Routes,
   Route
 } from "react-router-dom"
 function App() {
   return (
     <div className="App">
-      <BrowserRoute>
+      <BrowserRouter>
         <Routes>
           <Route path='/' element={<Welcome />} />
           <Route path='/homepage' element={<Homepage />} />
         </Routes>
-      </BrowserRoute>
+      </BrowserRouter>
     </div>
   )
 }
