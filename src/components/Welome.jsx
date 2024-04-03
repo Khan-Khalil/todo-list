@@ -59,10 +59,10 @@ export default function Welcome() {
     return(
         <div className="login-page">
          <h1>Todo List</h1>
-         <form>
+         <form onSubmit={ registering ? handleRegister : handleSignIn}>
             <div className="login-container">
-              {  registering ?
-                ( <>
+              
+                
                     <label htmlFor="email">Email</label>
                     <input 
                       type="email" 
@@ -71,6 +71,8 @@ export default function Welcome() {
                       value={email}
                       onChange={handleEmailChange}
                     /> <br/>
+                   { registering && ( 
+                    <>
                     <label htmlFor="confirm-email">Confirm Email</label>
                     <input 
                      type="email" 
@@ -79,6 +81,9 @@ export default function Welcome() {
                      value={confirmEmail}
                      onChange={handleConfirmEmailChange}
                     /> <br/>
+                    </>
+                    )} 
+
                     <label htmlFor="password">Password</label>
                     <input 
                      type="password" 
@@ -87,39 +92,21 @@ export default function Welcome() {
                      value={password}
                      onChange={handlePasswordChange}
                     /> <br />
-                    <label htmlFor="confirm-password">Confirm Password</label>
+
+                    {registering && (
+                     <>
+                     <label htmlFor="confirm-password">Confirm Password</label>
                     <input 
-                     type="password" 
-                     id="confirm-password"
-                     placeholder="Reenter your password" 
-                     value={confirmPassword}
-                     onChange={handleConfirmPasswordChange}
+                    type="password" 
+                    id="confirm-password"
+                    placeholder="Reenter your password" 
+                    value={confirmPassword}
+                    onChange={handleConfirmPasswordChange}
                     /> <br />
-                    <button onClick={handleRegister}>Register</button>
-                    <button onClick={() => setRegistering(false)}>Go back</button>
-                 </>
-                ) : (
-                 <>
-                    <label htmlFor="email">Email</label>
-                    <input 
-                      type="email" 
-                      id="email"
-                      placeholder="Enter your email" 
-                      value={email}
-                      onChange={handleEmailChange}
-                    /> <br/>
-                    <label htmlFor="password">Password</label>
-                    <input 
-                     type="password" 
-                     id="password"
-                     placeholder="Enter your password" 
-                     value={password}
-                     onChange={handlePasswordChange}
-                    /> <br />
-                    <button onClick={handleSignIn}>Sign In</button>
-                    <button onClick={() => setRegistering(true)}>Creat an account</button>
-                 </>
-                )}
+                    </>
+                    )}
+                    <button onClick={registering? handleRegister : handleSignIn}>{registering ? "Register" : "Sign in"}</button>
+                    <button type="button" onClick={() => setRegistering(!registering)}>{registering ? "Go back" : "create an account"}</button>
                 
             </div>
          </form> 
