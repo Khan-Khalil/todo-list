@@ -1,10 +1,13 @@
 import { signOut, onAuthStateChanged } from "firebase/auth"
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
-import { auth } from "../firebase"
+import { auth, db } from "../firebase"
+import { ref, set } from "firebase/database"
+import { uid } from "uid"
 
 export default function Homepage() {
     const navigate = useNavigate()
+    const [todo, setTodo] = useState("")
 
     useEffect(() => {
         auth.onAuthStateChanged(user => {
@@ -13,6 +16,19 @@ export default function Homepage() {
             }
         })
     },[])
+
+    const handleAddTodo = (e) => {
+        setTodo(e.target.value)
+    }
+
+    const writeToDatabase = () => {
+        const uidd = uid()
+        set(ref(db, `/${auth.currentUser.uid}/${uidd}`), {
+            todo: todo,
+            uidd: uidd
+        })
+        setTodo("")
+    }
 
     const handleSignout = () => {
         signOut(auth).then(() => {
@@ -23,7 +39,13 @@ export default function Homepage() {
     }
     return (
         <div>
-            <h1>homepage</h1>
+            <input
+             type="text"
+             value={todo}
+             placeholder="Add todo" 
+             onChange={handleAddTodo}
+            />
+            <button onClick={writeToDatabase}>add</button>
             <button onClick={handleSignout}>Sign out</button>
         </div>
     )
