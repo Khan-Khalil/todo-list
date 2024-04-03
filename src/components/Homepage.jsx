@@ -2,13 +2,15 @@ import { signOut, onAuthStateChanged } from "firebase/auth"
 import React, { useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import { auth, db } from "../firebase"
-import { onValue, ref, remove, set } from "firebase/database"
+import { onValue, ref, remove, set, update } from "firebase/database"
 import { uid } from "uid"
 
 export default function Homepage() {
     const navigate = useNavigate()
     const [todo, setTodo] = useState("")
     const [todos, setTodos] = useState([])
+    const [tempUidd, setTempUidd] = useState("")
+    const [isEdit, setIsEdit] = useState(false)
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
@@ -48,6 +50,21 @@ export default function Homepage() {
         remove(ref(db,`/${auth.currentUser.uid}/${uidd}`))
     } 
 
+    const handleUpdate = (todo) => {
+        setIsEdit(true)
+        setTodo(todo.todo)
+        setTempUidd(todo.uidd)
+    }
+
+    const handleUpdating = () => {
+        update(ref(db, `/${auth.currentUser.uid}/${tempUidd}`), {
+            todo: todo,
+            tempUidd: tempUidd
+        })
+        setTodo("")
+        setIsEdit(false)
+    }
+
     const handleSignout = () => {
         signOut(auth).then(() => {
             navigate('/')
@@ -66,12 +83,18 @@ export default function Homepage() {
             { todos.map((todo) => (
                 <div>
                     <h1>{todo.todo}</h1>
-                    <button>update</button>
+                    <button onClick={() => handleUpdate(todo)}>update</button>
                     <button onClick={() => handleDelete(todo.uidd)}>delete</button>
                 </div>
             ))}
-            <button onClick={writeToDatabase}>add</button>
-            <button onClick={handleSignout}>Sign out</button>
+            {
+                isEdit ? ( <button onClick={handleUpdating}>Confirm</button> 
+                ) : (
+
+                    <button onClick={writeToDatabase}>add</button>
+                )
+            }
+                <button onClick={handleSignout}>Sign out</button>
         </div>
     )
 }
