@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { signInWithEmailAndPassword, onAuthStateChanged, createUserWithEmailAndPassword } from "firebase/auth"
+import { 
+    signInWithEmailAndPassword, 
+    onAuthStateChanged, 
+    createUserWithEmailAndPassword } from "firebase/auth"
 import { auth } from "../firebase.js"
 import { useNavigate } from "react-router-dom"
+import './welcome.css'
+import TodoSVG from '../assets/todo-svg.svg'
+
 
 export default function Welcome() {
     const [email, setEmail] = useState("")
@@ -58,12 +64,11 @@ export default function Welcome() {
 
     return(
         <div className="login-page">
+            
          <h1>Todo List</h1>
          <form onSubmit={ registering ? handleRegister : handleSignIn}>
             <div className="login-container">
-              
                 
-                    <label htmlFor="email">Email</label>
                     <input 
                       type="email" 
                       id="email"
@@ -84,7 +89,6 @@ export default function Welcome() {
                     </>
                     )} 
 
-                    <label htmlFor="password">Password</label>
                     <input 
                      type="password" 
                      id="password"
@@ -105,11 +109,12 @@ export default function Welcome() {
                     /> <br />
                     </>
                     )}
-                    <button onClick={registering? handleRegister : handleSignIn}>{registering ? "Register" : "Sign in"}</button>
-                    <button type="button" onClick={() => setRegistering(!registering)}>{registering ? "Go back" : "create an account"}</button>
+                    <button className="signin-register-button" onClick={registering? handleRegister : handleSignIn}>{registering ? "Register" : "Sign in"}</button>
+                    <button className="create-account-button" type="button" onClick={() => setRegistering(!registering)}>{registering ? "Go back" : "create an account"}</button>
                 
             </div>
          </form> 
+         <img src={TodoSVG} className="todo-svg" />
         </div>
     )
 }
