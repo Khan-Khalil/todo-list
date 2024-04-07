@@ -64,7 +64,7 @@ export default function Welcome() {
 
     return(
         <div className="login-page">
-            
+         <div className="h1-container">
          <h1>Todo List</h1>
          <form onSubmit={ registering ? handleRegister : handleSignIn}>
             <div className="login-container">
@@ -75,9 +75,9 @@ export default function Welcome() {
                       placeholder="Enter your email" 
                       value={email}
                       onChange={handleEmailChange}
-                    /> <br/>
+                      /> <br/>
                    { registering && ( 
-                    <>
+                       <>
                     <label htmlFor="confirm-email">Confirm Email</label>
                     <input 
                      type="email" 
@@ -95,10 +95,10 @@ export default function Welcome() {
                      placeholder="Enter your password" 
                      value={password}
                      onChange={handlePasswordChange}
-                    /> <br />
+                     /> <br />
 
                     {registering && (
-                     <>
+                        <>
                      <label htmlFor="confirm-password">Confirm Password</label>
                     <input 
                     type="password" 
@@ -114,7 +114,10 @@ export default function Welcome() {
                 
             </div>
          </form> 
+         </div> 
+         <div className="svg">
          <img src={TodoSVG} className="todo-svg" />
+         </div>
         </div>
     )
 }
