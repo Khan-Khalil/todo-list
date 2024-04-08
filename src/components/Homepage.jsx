@@ -4,6 +4,12 @@ import { useNavigate } from "react-router-dom"
 import { auth, db } from "../firebase"
 import { onValue, ref, remove, set, update } from "firebase/database"
 import { uid } from "uid"
+import "./homepage.css"
+import EditIcon from "@mui/icons-material/Edit"
+import DeleteIcon from "@mui/icons-material/Delete"
+import CheckIcon from '@mui/icons-material/Check'
+import AddIcon from "@mui/icons-material/Add"
+import LogoutIcon from '@mui/icons-material/Logout'
 
 export default function Homepage() {
     const navigate = useNavigate()
@@ -73,28 +79,47 @@ export default function Homepage() {
         })
     }
     return (
-        <div>
+        <div className="home-page"> 
+         <div className="add-todo">
             <input
              type="text"
              value={todo}
              placeholder="Add todo" 
              onChange={handleAddTodo}
             />
+            
+             {
+                isEdit ? ( 
+                    <div>
+                    <CheckIcon onClick={handleUpdating} className="add-confirm-icon"/>
+                    </div>
+                ) : (
+                    <div>    
+                     <AddIcon onClick={writeToDatabase} className="add-confirm-icon" />
+                     </div>
+                )
+             }
+
+        
+
+         </div>
             { todos.map((todo) => (
-                <div>
+                <div className="todo">
                     <h1>{todo.todo}</h1>
-                    <button onClick={() => handleUpdate(todo)}>update</button>
-                    <button onClick={() => handleDelete(todo.uidd)}>delete</button>
+                    <EditIcon
+                        fontSize="large"
+                        onClick={() => handleUpdate(todo)}
+                        className="edit-button"
+                    />
+                    <DeleteIcon
+                        fontSize="large"
+                        onClick={() => handleDelete(todo.uidd)}
+                        className="delete-button"
+                    />
+                    
                 </div>
             ))}
-            {
-                isEdit ? ( <button onClick={handleUpdating}>Confirm</button> 
-                ) : (
-
-                    <button onClick={writeToDatabase}>add</button>
-                )
-            }
-                <button onClick={handleSignout}>Sign out</button>
+                <LogoutIcon onClick={handleSignout} className="logout-icon">Sign out</LogoutIcon>
         </div>
     )
 }

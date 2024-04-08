@@ -66,7 +66,7 @@ export default function Welcome() {
         <div className="login-page">
          <div className="h1-container">
          <h1>Todo List</h1>
-         <form onSubmit={ registering ? handleRegister : handleSignIn}>
+
             <div className="login-container">
                 
                     <input 
@@ -78,7 +78,7 @@ export default function Welcome() {
                       /> <br/>
                    { registering && ( 
                        <>
-                    <label htmlFor="confirm-email">Confirm Email</label>
+
                     <input 
                      type="email" 
                      id="confirm-email"
@@ -99,7 +99,6 @@ export default function Welcome() {
 
                     {registering && (
                         <>
-                     <label htmlFor="confirm-password">Confirm Password</label>
                     <input 
                     type="password" 
                     id="confirm-password"
@@ -113,7 +112,7 @@ export default function Welcome() {
                     <button className="create-account-button" type="button" onClick={() => setRegistering(!registering)}>{registering ? "Go back" : "create an account"}</button>
                 
             </div>
-         </form> 
+        
          </div> 
          <div className="svg">
          <img src={TodoSVG} className="todo-svg" />

@@ -1,0 +1,69 @@
+.home-page {
+    height: 100vh;
+    width: 100vw;
+    background: linear-gradient(122.19deg, #62e489 1.89%, #2a00d5 113.56%);
+    display: flex;
+    align-items: center;
+    /* justify-content: center; */
+    flex-direction: column;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.add-todo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+    margin-bottom: 10%;
+    gap: 10%;
+    
+}
+
+.add-todo > input {
+  outline: none;
+  border: none;
+  height: 80%;
+  font-size: 3.5vw;
+  padding: 0.8% 1.5%;
+
+}
+
+.add-confirm-icon {
+    font-size: 6vw !important;
+     cursor: pointer;
+}
+
+.todo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 2%;
+}
+
+.todo > h1 {
+    width: 65vw; 
+    background-color: rgb(211, 211, 211);
+    padding: 0.3vh 1vw;
+    font-size: 5vw;
+}
+
+.edit-button,
+.delete-button {
+  cursor: pointer;
+  margin-left: 1vw;
+  width: 5vw !important;
+}
+
+.logout-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 1.5vh;
+    right: 1.5vw;
+    padding: 2.5%;
+    background: red;
+    color: white;
+  }
