@@ -33,7 +33,7 @@ export default function Homepage() {
                     }
                 })
             } else if(!user){
-                navigate('/')
+                navigate('todo-list')
             }
         })
     },[])
@@ -73,7 +73,7 @@ export default function Homepage() {
 
     const handleSignout = () => {
         signOut(auth).then(() => {
-            navigate('/')
+            navigate('todo-list')
         }).catch((err) => {
             alert(err.message)
         })

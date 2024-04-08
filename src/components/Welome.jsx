@@ -21,7 +21,7 @@ export default function Welcome() {
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
             if(user){
-                navigate('/homepage')
+                navigate('todo-list/homepage')
             }
         })
     },[])
@@ -44,7 +44,7 @@ export default function Welcome() {
 
     const handleSignIn = () => {
         signInWithEmailAndPassword(auth, email, password).then(() => {
-            navigate("/homepage")
+            navigate("todo-list/homepage")
         }).catch((err)=> alert(err.message))
     }
 
@@ -58,7 +58,7 @@ export default function Welcome() {
             return
         }
         createUserWithEmailAndPassword(auth, email, password).then(() => {
-            navigate("/homepage")
+            navigate("todlo-list/homepage")
         }).catch((err) => alert(err.message))
     }
 
