@@ -15,13 +15,14 @@ export default function Homepage() {
     const navigate = useNavigate()
     const [todo, setTodo] = useState("")
     const [todos, setTodos] = useState([])
+    const [completeTodos, setCompleteTodos] = useState([])
     const [tempUidd, setTempUidd] = useState("")
     const [isEdit, setIsEdit] = useState(false)
 
     useEffect(() => {
         auth.onAuthStateChanged((user) => {
 
-            // read or showing all the the todos
+            
             if(user) {
                 onValue(ref(db, `/${auth.currentUser.uid}`), (snapshot) => {
                     setTodos([])
@@ -78,9 +79,19 @@ export default function Homepage() {
             alert(err.message)
         })
     }
+
+    const handleToggleComplete = (uidd) => {
+        if(completeTodos.includes(uidd)) {
+            setCompleteTodos(completeTodos.filter((id)=> id !== uidd))
+        } else {
+            setCompleteTodos([...completeTodos, uidd])
+        }
+    }
+
     return (
         <div className="home-page"> 
          <div className="add-todo">
+            
             <input
              type="text"
              value={todo}
@@ -104,7 +115,7 @@ export default function Homepage() {
 
          </div>
             { todos.map((todo) => (
-                <div className="todo">
+                <label key={todo.uidd} className= {`todo ${completeTodos.includes(todo.uidd)? "completed" : ""}`} >
                     <h1>{todo.todo}</h1>
                     <EditIcon
                         fontSize="large"
@@ -116,8 +127,9 @@ export default function Homepage() {
                         onClick={() => handleDelete(todo.uidd)}
                         className="delete-button"
                     />
+                    <input type="checkbox" checked={completeTodos.includes(todo.uidd)} onChange={() => handleToggleComplete(todo.uidd)} />
                     
-                </div>
+                </label>
             ))}
                 <LogoutIcon onClick={handleSignout} className="logout-icon">Sign out</LogoutIcon>
         </div>

@@ -67,3 +67,7 @@
     background: red;
     color: white;
   }
+
+  .todo.completed {
+    text-decoration: line-through;
+}
